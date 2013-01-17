@@ -89,7 +89,7 @@
   # statsd will periodically flush its metrics to Graphite
   # Be sure to include the Graphite backend above
   "graphitePort": 2003,
-  "graphiteHost": "graphite.domain.local",
+  "graphiteHost": "observer.opera.com",
 
   ## Repeater backend is not implemented yet
   #"repeater": [ { "host": "10.1.2.3", "port": 8125 } ],
