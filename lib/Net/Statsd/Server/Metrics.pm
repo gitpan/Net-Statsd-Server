@@ -65,9 +65,11 @@ sub process {
     my $min = $values[0];
     my $max = $values[$#values];
 
+    # We don't want to iterate at all if there's just 1 value
     my $cumulativeValues = [ $min ];
-    for (1 .. $count) {
-      push @{ $cumulativeValues }, $values[$_] + $cumulativeValues->[$_-1];
+    for (my $i = 1; $i < $count; $i++) {
+      my $cmlVal = $values[$i] + $cumulativeValues->[$i - 1];
+      push @{ $cumulativeValues }, $values[$i] + $cumulativeValues->[$i - 1];
     }
 
     my $sum = my $mean = $min;
@@ -76,7 +78,10 @@ sub process {
     for my $pct (@{ $pctThreshold }) {
 
       if ($count > 1) {
-        my $numInThreshold = int ($pct / 100 * $count);
+        # Pay attention to the rounding: should behave the same
+        # as etsy's statsd, that's using a Math.round(x).
+        # int(x + 0.5) does this.
+        my $numInThreshold = int(($pct / 100 * $count) + 0.5);
         $maxAtThreshold = $values[$numInThreshold - 1];
         $sum = $cumulativeValues->[$numInThreshold - 1];
         $mean = $sum / $numInThreshold;
