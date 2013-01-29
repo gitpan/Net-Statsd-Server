@@ -25,13 +25,13 @@ use Net::Statsd::Server::Metrics;
 # Constants and global variables {{{
 
 use constant {
-  DEBUG                  => 1,
+  DEBUG                  => 0,
   DEFAULT_CONFIG_FILE    => 'localConfig.js',
   DEFAULT_FLUSH_INTERVAL => 10000,
   DEFAULT_LOG_LEVEL      => 'info',
 };
 
-our $VERSION = '0.08';
+our $VERSION = '0.09';
 our $logger;
 
 # }}}
@@ -237,7 +237,7 @@ sub handle_client_packet {
     my $key = shift @bits;
 
     $key =~ y{/ }{_-}s;
-    $key =~ y{a-zA-Z0-9\-\.}{}cd;
+    $key =~ y{a-zA-Z0-9_\-\.}{}cd;
 
     # Not very clear here. Etsy's code was doing this differently
     if ($must_count_keys) {
@@ -253,7 +253,7 @@ sub handle_client_packet {
       my @fields = split(/\|/, $bits[$i]);
 
       if (! defined $fields[1] || $fields[1] eq "") {
-        $logger->("Bad line: $bits[$i] in msg \"$m\"");
+        $logger->(warn => "Bad line: $bits[$i] in msg \"$m\"");
         $counters->{"statsd.bad_lines_seen"}++;
         $stats->{"messages"}->{"bad_lines_seen"}++;
         next;
@@ -295,7 +295,7 @@ sub handle_client_packet {
             $sample_rate = $1 + 0;
           }
           else {
-            $logger->("Bad line: $bits[$i] in msg \"$m\"; has invalid sample rate");
+            $logger->(warn => "Bad line: $bits[$i] in msg \"$m\"; has invalid sample rate");
             $counters->{"statsd.bad_lines_seen"}++;
             $stats->{"messages"}->{"bad_lines_seen"}++;
             next;
@@ -443,8 +443,15 @@ sub init_backends {
     die "At least one backend is needed in your configuration";
   }
   for my $backend (@{ $backends }) {
+
+    # Nodejs statsd expects a relative path
+    if ($backend =~ m{^ \./backends/ (.+) $}x) {
+      $backend = $1;
+    }
+
     my $pkg = $backend;
     if ($backend =~ m{^ (\w+) $}x) {
+      $pkg = ucfirst lc $pkg;
       $pkg = "Net::Statsd::Server::Backend::${pkg}";
     }
     my $mod = $pkg;
@@ -453,7 +460,7 @@ sub init_backends {
     eval {
       require $mod ; 1
     } or do {
-      $logger->("Backend ${backend} failed to load: $@");
+      $logger->(error=>"Backend ${backend} failed to load: $@");
       next;
     };
     $self->register_backend($pkg);
