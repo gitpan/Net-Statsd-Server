@@ -8,7 +8,7 @@ use AnyEvent;
 use AnyEvent::Strict;
 use AnyEvent::Handle;
 use AnyEvent::Socket;
-use IO::Socket::INET;
+use IO::Socket::INET ();
 use Time::HiRes;
 
 sub new {
@@ -34,7 +34,7 @@ sub wait_and_collect_flush_data {
   $self->{_flush_data} = "";
 
   # Pretend to be a carbon/graphite daemon
-  $port ||= 2003;
+  $port ||= 40003;
 
   my $srv;
   my $cv = AE::cv;
