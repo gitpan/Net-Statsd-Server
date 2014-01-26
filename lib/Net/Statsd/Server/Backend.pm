@@ -1,6 +1,9 @@
 # ABSTRACT: Backend base class for Net::Statsd::Server
 
 package Net::Statsd::Server::Backend;
+{
+  $Net::Statsd::Server::Backend::VERSION = '0.13';
+}
 
 # Use statements {{{
 

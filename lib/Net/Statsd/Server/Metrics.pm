@@ -1,8 +1,11 @@
 # ABSTRACT: Provides metrics abstraction to a running statsd server
 
 package Net::Statsd::Server::Metrics;
+{
+  $Net::Statsd::Server::Metrics::VERSION = '0.13';
+}
 
-use 5.010;
+use 5.008;
 use strict;
 use Carp        ();
 use Time::HiRes ();

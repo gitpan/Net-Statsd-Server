@@ -1,24 +1,23 @@
---- #YAML:1.0
-name:               Net-Statsd-Server
-version:            0.12
-abstract:           ~
+---
+abstract: "a Perl port of Etsy's statsd *server*"
 author:
-    - Cosimo Streppone <cosimo@cpan.org>
-license:            unknown
-distribution_type:  module
-configure_requires:
-    ExtUtils::MakeMaker:  0
+  - 'Cosimo Streppone <cosimo@cpan.org>'
 build_requires:
-    ExtUtils::MakeMaker:  0
-requires:
-    AnyEvent::Handle::UDP:  0
-    IO::Socket::INET:     0
-    JSON::XS:             0
-no_index:
-    directory:
-        - t
-        - inc
-generated_by:       ExtUtils::MakeMaker version 6.57_05
+  Test::More: 0
+configure_requires:
+  ExtUtils::MakeMaker: 6.30
+dynamic_config: 0
+generated_by: 'Dist::Zilla version 5.005, CPAN::Meta::Converter version 2.120921'
+license: perl
 meta-spec:
-    url:      http://module-build.sourceforge.net/META-spec-v1.4.html
-    version:  1.4
+  url: http://module-build.sourceforge.net/META-spec-v1.4.html
+  version: 1.4
+name: Net-Statsd-Server
+requires:
+  AnyEvent::Handle::UDP: 0
+  IO::Socket::INET: 0
+  JSON::XS: 0
+resources:
+  bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=Net-Statsd-Server
+  repository: git://github.com/cosimo/perl5-net-statsd-server.git
+version: 0.13

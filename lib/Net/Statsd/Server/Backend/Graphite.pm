@@ -1,5 +1,5 @@
 #
-# Flush stats to graphite (http://graphite.wikidot.com/).
+# ABSTRACT: Flushes stats to graphite (http://graphite.wikidot.com/).
 #
 # To enable this backend, include 'graphite' in the backends
 # configuration array:
@@ -13,8 +13,11 @@
 #
 
 package Net::Statsd::Server::Backend::Graphite;
+{
+  $Net::Statsd::Server::Backend::Graphite::VERSION = '0.13';
+}
 
-use 5.010;
+use 5.008;
 use strict;
 use warnings;
 use base qw(Net::Statsd::Server::Backend);
@@ -31,6 +34,8 @@ use constant {
   fmt_TIME  => '%d',
 };
 
+sub _dor { defined $_[0] ? $_[0] : $_[1] }
+
 sub init {
   my ($self, $startup_time, $config) = @_;
 
@@ -40,12 +45,12 @@ sub init {
 
   $config->{graphite} ||= {};
 
-  my $globalPrefix    = $config->{graphite}->{globalPrefix}    // "stats";
-  my $prefixCounter   = $config->{graphite}->{prefixCounter}   // "counters";
-  my $prefixTimer     = $config->{graphite}->{prefixTimer}     // "timers";
-  my $prefixGauge     = $config->{graphite}->{prefixGauge}     // "gauges";
-  my $prefixSet       = $config->{graphite}->{prefixSet}       // "sets";
-  my $legacyNamespace = $config->{graphite}->{legacyNamespace} // 1;
+  my $globalPrefix    = _dor($config->{graphite}->{globalPrefix} , "stats");
+  my $prefixCounter   = _dor($config->{graphite}->{prefixCounter}, "counters");
+  my $prefixTimer     = _dor($config->{graphite}->{prefixTimer}  , "timers");
+  my $prefixGauge     = _dor($config->{graphite}->{prefixGauge}  , "gauges");
+  my $prefixSet       = _dor($config->{graphite}->{prefixSet}    , "sets");
+  my $legacyNamespace = _dor($config->{graphite}->{legacyNamespace} , 1);
 
   my $globalNamespace  = [];
   my $counterNamespace = [];

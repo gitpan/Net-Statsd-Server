@@ -1,27 +1,13 @@
-Net::Statsd::Server - a Perl port of Etsy's statsd
-==================================================
 
-For the statsd client library, see Net::Statsd:
 
-  https://metacpan.org/module/Net::Statsd
+This archive contains the distribution Net-Statsd-Server,
+version 0.13:
 
-This instead is the server component of statsd.
+  a Perl port of Etsy's statsd *server*
 
-== MOTIVATION ==
+This software is copyright (c) 2014 by Cosimo Streppone.
 
-Why did I do this? For a few reasons:
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
 
-* Because I don't like adding node.js to our
-  production stack just to run statsd.
-* to learn how statsd was put together
-* to learn AnyEvent
-* to learn how to build a high performance UDP server
-* to have some geek fun
 
-Basically, to learn :-)
-
-== THANKS ==
-
-Many thanks to my awesome wife that coped with
-me trying to write statsd in Perl in a weekend,
-leaving barely any time for anything else.

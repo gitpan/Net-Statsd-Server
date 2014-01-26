@@ -1,6 +1,9 @@
 package Test::Statsd;
+{
+  $Test::Statsd::VERSION = '0.13';
+}
 
-use 5.010;
+use 5.008;
 use strict;
 use warnings;
 

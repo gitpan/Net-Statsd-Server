@@ -13,8 +13,11 @@
 #
 
 package Net::Statsd::Server::Backend::Test;
+{
+  $Net::Statsd::Server::Backend::Test::VERSION = '0.13';
+}
 
-use 5.010;
+use 5.008;
 use strict;
 use warnings;
 use base qw(Net::Statsd::Server::Backend::Graphite);

@@ -1,6 +1,9 @@
 # ABSTRACT: Console backend for Net::Statsd::Server
 
 package Net::Statsd::Server::Backend::Console;
+{
+  $Net::Statsd::Server::Backend::Console::VERSION = '0.13';
+}
 
 use strict;
 use warnings;

@@ -32,7 +32,7 @@ use constant {
   RECEIVE_BUFFER_MB      => 8,                   # 0 = setsockopt disabled
 };
 
-our $VERSION = '0.12';
+our $VERSION = '0.13';
 our $logger;
 
 # }}}
@@ -186,13 +186,13 @@ sub clear_metrics {
 
   # Metrics that are not seen in the interval won't
   # be sent anymore. Enable this with 'deleteIdleStats'
-  my $del_idle = $conf->{deleteIdleStats} // 0;
+  my $del_idle = _defined_or($conf->{deleteIdleStats}, 0);
 
   if ($del_idle) {
-    $del_counters //= 1;
-    $del_gauges   //= 1;
-    $del_timers   //= 1;
-    $del_sets     //= 1;
+    $del_counters = _defined_or($del_counters, 1);
+    $del_gauges   = _defined_or($del_gauges,   1);
+    $del_timers   = _defined_or($del_timers,   1);
+    $del_sets     = _defined_or($del_sets,     1);
   }
 
   # Whether to just reset them to zero or to wipe them
@@ -241,7 +241,7 @@ sub clear_metrics {
 }
 
 sub config_file {
-  $_[0]->{config_file} // DEFAULT_CONFIG_FILE;
+  _defined_or($_[0]->{config_file}, DEFAULT_CONFIG_FILE);
 }
 
 sub flush_metrics {
@@ -595,17 +595,19 @@ sub setup_flush_timer {
   return $flush_t;
 }
 
+sub _defined_or { defined $_[0] ? $_[0] : $_[1] }
+
 sub setup_keyflush_timer {
   my ($self) = @_;
 
   my $conf_kf = $self->config->{keyFlush};
-  my $kf_interval = $conf_kf->{interval} // 0;
+  my $kf_interval = _defined_or($conf_kf->{interval}, 0);
   return if $kf_interval <= 0;
 
   # Always milliseconds in the config!
   $kf_interval /= 1000;
 
-  my $kf_pct = $conf_kf->{percent} // 100;
+  my $kf_pct = _defined_or($conf_kf->{percent}, 100);
   my $kf_log = $conf_kf->{log};
 
   $logger->(notice => "flushing top ${kf_pct}% keys to "
@@ -623,8 +625,8 @@ sub setup_keyflush_timer {
 sub flush_top_keys {
   my ($self) = @_;
 
-  my $conf_kf = $self->config->{keyFlush} // {};
-  my $kf_interval = $conf_kf->{interval} // 0;
+  my $conf_kf = _defined_or($self->config->{keyFlush}, {});
+  my $kf_interval = _defined_or($conf_kf->{interval}, 0);
   $kf_interval /= 1000;
 
   my $kf_pct = $conf_kf->{percent} || 100;

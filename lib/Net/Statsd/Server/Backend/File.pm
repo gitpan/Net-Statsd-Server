@@ -1,6 +1,9 @@
 # ABSTRACT: File backend for Net::Statsd::Server
 
 package Net::Statsd::Server::Backend::File;
+{
+  $Net::Statsd::Server::Backend::File::VERSION = '0.13';
+}
 
 use strict;
 use warnings;
