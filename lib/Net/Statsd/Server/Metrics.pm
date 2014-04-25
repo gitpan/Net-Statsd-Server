@@ -2,7 +2,7 @@
 
 package Net::Statsd::Server::Metrics;
 {
-  $Net::Statsd::Server::Metrics::VERSION = '0.13';
+  $Net::Statsd::Server::Metrics::VERSION = '0.14';
 }
 
 use 5.008;

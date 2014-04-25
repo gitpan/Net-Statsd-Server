@@ -1,6 +1,6 @@
 package Test::Statsd;
 {
-  $Test::Statsd::VERSION = '0.13';
+  $Test::Statsd::VERSION = '0.14';
 }
 
 use 5.008;

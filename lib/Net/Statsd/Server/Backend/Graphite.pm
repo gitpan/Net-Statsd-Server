@@ -14,7 +14,7 @@
 
 package Net::Statsd::Server::Backend::Graphite;
 {
-  $Net::Statsd::Server::Backend::Graphite::VERSION = '0.13';
+  $Net::Statsd::Server::Backend::Graphite::VERSION = '0.14';
 }
 
 use 5.008;

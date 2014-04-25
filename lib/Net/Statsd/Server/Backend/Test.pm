@@ -14,7 +14,7 @@
 
 package Net::Statsd::Server::Backend::Test;
 {
-  $Net::Statsd::Server::Backend::Test::VERSION = '0.13';
+  $Net::Statsd::Server::Backend::Test::VERSION = '0.14';
 }
 
 use 5.008;

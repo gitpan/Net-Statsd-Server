@@ -2,7 +2,7 @@
 
 package Net::Statsd::Server::Backend::Console;
 {
-  $Net::Statsd::Server::Backend::Console::VERSION = '0.13';
+  $Net::Statsd::Server::Backend::Console::VERSION = '0.14';
 }
 
 use strict;
