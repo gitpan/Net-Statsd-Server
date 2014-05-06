@@ -2,7 +2,7 @@
 
 package Net::Statsd::Server::Backend;
 {
-  $Net::Statsd::Server::Backend::VERSION = '0.14';
+  $Net::Statsd::Server::Backend::VERSION = '0.16';
 }
 
 # Use statements {{{

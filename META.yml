@@ -20,4 +20,4 @@ requires:
 resources:
   bugtracker: http://rt.cpan.org/NoAuth/Bugs.html?Dist=Net-Statsd-Server
   repository: git://github.com/cosimo/perl5-net-statsd-server.git
-version: 0.14
+version: 0.16
