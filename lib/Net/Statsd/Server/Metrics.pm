@@ -2,7 +2,7 @@
 
 package Net::Statsd::Server::Metrics;
 {
-  $Net::Statsd::Server::Metrics::VERSION = '0.16';
+  $Net::Statsd::Server::Metrics::VERSION = '0.17';
 }
 
 use 5.008;
@@ -31,6 +31,12 @@ sub new {
     timer_data => {},
     pctThreshold => [ 90 ],
   };
+
+  if (exists $config->{percentThreshold}
+      && ref $config->{percentThreshold} eq "ARRAY") {
+    $self->{pctThreshold} = $config->{percentThreshold};
+  }
+
   bless $self, $class;
 }
 

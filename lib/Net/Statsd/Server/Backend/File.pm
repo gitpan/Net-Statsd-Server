@@ -2,7 +2,7 @@
 
 package Net::Statsd::Server::Backend::File;
 {
-  $Net::Statsd::Server::Backend::File::VERSION = '0.16';
+  $Net::Statsd::Server::Backend::File::VERSION = '0.17';
 }
 
 use strict;

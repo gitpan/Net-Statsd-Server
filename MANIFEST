@@ -26,12 +26,14 @@ t/bin/test-perl-statsd.sh
 t/config.t
 t/config/deleteIdleButGauges.js
 t/config/deleteIdleStats.js
+t/config/percentThreshold.js
 t/config/testConfig.js
 t/graphite.t
 t/integration-tests/bad-message.t
 t/integration-tests/counts-are-valid.t
 t/integration-tests/delete-gauges-false.t
 t/integration-tests/delete-idle-stats.t
+t/integration-tests/percent-threshold.t
 t/integration-tests/timers-are-valid.t
 t/process-metrics.t
 t/trim.t
